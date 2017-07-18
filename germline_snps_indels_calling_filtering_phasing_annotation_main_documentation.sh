@@ -1,6 +1,6 @@
 #===============================================================================
 #
-#         FILE: /mnt/scratch/steepale/birdman/bermuda/germline_snps_indels/scripts/germline_snps_indels_calling_filtering_phasing_annotation_main_documentation.sh
+#         FILE: /mnt/scratch/steepale/birdman/bermuda/germline_snps_indels/germline_snps_indels_calling_filtering_phasing_annotation_main_documentation.sh
 #
 #        USAGE: For development and documentation purposes, scripts inside
 #
@@ -95,7 +95,7 @@ sample_name=$(basename ${Var} "_bwa_rg_dedupped_realigned_bqsr.bam")
 
 java -Xmx120g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T HaplotypeCaller \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -I ${Var} \
 -ERC GVCF \
 -o ./data/raw_snps_indels/${sample_name}_raw_snps_indels.g.vcf
@@ -174,7 +174,7 @@ cd \${PBS_O_WORKDIR}
 
 java -Xmx60g -cp \$GATK -jar \$GATK/GenomeAnalysisTK.jar \\
 -T GenotypeGVCFs \\
--R ./data/Galgal5/genome.fa \\
+-R ./data/Galgal5/galgal5.fa \\
 Header_input
 
 find ./data/raw_snps_indels -name "*_raw_snps_indels.g.vcf.gz" | \
@@ -211,7 +211,7 @@ qsub -N "compress_and_index_vcfs" ./scripts/joint_genotype_germline_gvcfs.sh
 # 
 # java -Xmx60g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 # -T GenotypeGVCFs \
-# -R ./data/Galgal5/genome.fa \
+# -R ./data/Galgal5/galgal5.fa \
 # -V ${Var} \
 # -o ./data/raw_snps_indels/${sample_name}_raw_snps_indels_genotyped.g.vcf \
 # 2> ./analysis/raw_snps_indels/${sample_name}_raw_snps_indels_genotyped.log
@@ -271,7 +271,7 @@ sample_name=$(basename ${Var} "_raw_snps_indels_genotyped.g.vcf.gz")
 # Extract the SNPs from the call set
 java -Xmx10g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T SelectVariants \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -V ${Var} \
 -selectType SNP \
 -o ./data/raw_snps_indels/${sample_name}_raw_snps_extracted.g.vcf.gz
@@ -311,7 +311,7 @@ cd ${PBS_O_WORKDIR}
 # Select individual samples and filter out filtered calls and all non-variants
 java -Xmx10g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T SelectVariants \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -V ./data/raw_snps_indels/germline_raw_snps_extracted.g.vcf.gz \
 -o ./data/raw_snps_indels/${Var}_raw_snps_extracted.vcf.gz \
 -sn ${Var} \
@@ -500,7 +500,7 @@ sample_name=$(basename ${Var} "_raw_snps_extracted.g.vcf.gz")
 # Perform hard filtering
 java -Xmx10g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T VariantFiltration \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -V ${Var} \
 --filterExpression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -2.5" \
 --filterName "SNP_HARD_FILTER" \
@@ -557,7 +557,7 @@ do
   # Select individual samples and filter out filtered calls and all non-variants
   java -Xmx8g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
   -T SelectVariants \
-  -R ./data/Galgal5/genome.fa \
+  -R ./data/Galgal5/galgal5.fa \
   -V ${Var} \
   -o ./data/hard_filtered_variants/${sample_name}_hard_filtered_snps.vcf.gz \
   -sn ${sample_name} \
@@ -618,7 +618,7 @@ done
 #!/bin/bash -login
 ### Job name
 ### Resources
-#PBS -l nodes=1:ppn=1,walltime=004:00:00:00,mem=10gb
+#PBS -l nodes=1:ppn=1,walltime=04:00:00:00,mem=10gb
 ### Send email if the job encounters an error
 #PBS –m a
 ### Output files to where you submitted your batch file
@@ -627,7 +627,8 @@ done
 #PBS -j oe
 
 # Change to working directory
-cd ${PBS_O_WORKDIR}
+#cd ${PBS_O_WORKDIR}
+cd /scratch/steep/bermuda/germline_snps_indels
 
 # Variables
 #Var='./data/hard_filtered_variants/P4806_134_hard_filtered_snps.vcf.gz'
