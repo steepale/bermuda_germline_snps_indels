@@ -22,7 +22,7 @@ sample_name=$(basename ${Var} "_raw_snps_indels_genotyped.g.vcf.gz")
 # Extract the SNPs from the call set
 java -Xmx10g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T SelectVariants \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -V ${Var} \
 -selectType SNP \
 -o ./data/raw_snps_indels/${sample_name}_raw_snps_extracted.g.vcf.gz

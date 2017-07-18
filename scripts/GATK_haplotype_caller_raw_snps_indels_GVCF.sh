@@ -19,7 +19,7 @@ sample_name=$(basename ${Var} "_bwa_rg_dedupped_realigned_bqsr.bam")
 
 java -Xmx120g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T HaplotypeCaller \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -I ${Var} \
 -ERC GVCF \
 -o ./data/raw_snps_indels/${sample_name}_raw_snps_indels.g.vcf

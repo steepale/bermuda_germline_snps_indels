@@ -1,7 +1,7 @@
 #!/bin/bash -login
 ### Job name
 ### Resources
-#PBS -l nodes=1:ppn=1,walltime=004:00:00:00,mem=10gb
+#PBS -l nodes=1:ppn=1,walltime=00:03:59:00,mem=10gb
 ### Send email if the job encounters an error
 #PBS –m a
 ### Output files to where you submitted your batch file
@@ -13,7 +13,6 @@
 cd ${PBS_O_WORKDIR}
 
 # Variables
-#Var='./data/hard_filtered_variants/P4806_134_hard_filtered_snps.vcf.gz'
 sample=`echo ${Var} | xargs -i basename {} | sed 's/_hard_filtered_snps.vcf.gz//'`
 
 # Annotate with VEP

@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+#setwd()
+
 # Capture command line args
 args = commandArgs(trailingOnly=TRUE)
 
@@ -26,7 +28,7 @@ qplot(QD, data = df[,1, drop = FALSE], geom = "density") + xlab("QD") + ylab("De
 ggsave(QD_out)
 
 # FS Plot (x-axis is logged)
-qplot(FS, data = df[,2, drop = FALSE], geom = "density", log="x") + xlab("FS (x-axis logged)") + ylab("Density")
+qplot(FS, data = df[,2, drop = FALSE], geom = "density", log="x") + xlab("log FS") + ylab("Density")
 ggsave(FS_out)
 # Cutoff right after right peak
 
@@ -51,4 +53,3 @@ ggsave(MQRankSum_out)
 # Generate the ReadPosRankSum Plot
 qplot(ReadPosRankSum, data = df[,5, drop = FALSE], geom = "density") + xlab("ReadPosRankSum") + ylab("Density")
 ggsave(ReadPosRankSum_out)
-

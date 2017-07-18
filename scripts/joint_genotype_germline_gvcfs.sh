@@ -17,10 +17,7 @@ cd ${PBS_O_WORKDIR}
 
 java -Xmx60g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T GenotypeGVCFs \
--R ./data/Galgal5/genome.fa \
--V ./dev/P4806_140_raw_snps_indels.g.vcf.gz \
--V ./dev/P4806_131_raw_snps_indels.g.vcf.gz \
--V ./dev/P4806_134_raw_snps_indels.g.vcf.gz \
+-R ./data/Galgal5/galgal5.fa \
 -o ./data/raw_snps_indels/germline_raw_snps_indels_genotyped.g.vcf.gz
 
 qstat -f ${PBS_JOBID}

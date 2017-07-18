@@ -19,7 +19,7 @@ cd ${PBS_O_WORKDIR}
 # Select individual samples and filter out filtered calls and all non-variants
 java -Xmx10g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T SelectVariants \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -V ./data/raw_snps_indels/germline_raw_snps_extracted.g.vcf.gz \
 -o ./data/raw_snps_indels/${Var}_raw_snps_extracted.vcf.gz \
 -sn ${Var} \

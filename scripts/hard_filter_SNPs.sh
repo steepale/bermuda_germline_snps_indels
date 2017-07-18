@@ -21,7 +21,7 @@ sample_name=$(basename ${Var} "_raw_snps_extracted.g.vcf.gz")
 # Perform hard filtering
 java -Xmx10g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
 -T VariantFiltration \
--R ./data/Galgal5/genome.fa \
+-R ./data/Galgal5/galgal5.fa \
 -V ${Var} \
 --filterExpression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -2.5" \
 --filterName "SNP_HARD_FILTER" \

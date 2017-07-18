@@ -33,7 +33,7 @@ do
   # Select individual samples and filter out filtered calls and all non-variants
   java -Xmx8g -cp $GATK -jar $GATK/GenomeAnalysisTK.jar \
   -T SelectVariants \
-  -R ./data/Galgal5/genome.fa \
+  -R ./data/Galgal5/galgal5.fa \
   -V ${Var} \
   -o ./data/hard_filtered_variants/${sample_name}_hard_filtered_snps.vcf.gz \
   -sn ${sample_name} \
